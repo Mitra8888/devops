@@ -1,0 +1,31 @@
+<button matButton="filled" [routerLink]="'/list'" style="margin-bottom: 30px;">
+    Get back to the list
+</button>
+<h5>Create Customer</h5>
+
+<div class="mat-elevation-z2 p-2">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your name</mat-label>
+            <input matInput placeholder="name" formControlName="name" required>
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="email" formControlName="email" required>
+            <mat-icon matSuffix>mail</mat-icon>
+        </mat-form-field><br>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your phone number</mat-label>
+            <input matInput placeholder="phone" formControlName="phone" required>
+            <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field> <br>
+        <button mat-raised-button type="Submit">
+            Save
+        </button>
+        <button mat-raised-button type="Submit">
+            Cancel
+        </button>
+    </form>
+
+</div>

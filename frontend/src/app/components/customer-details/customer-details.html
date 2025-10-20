@@ -1,0 +1,11 @@
+
+<button matButton="filled" [routerLink]="'/list'">Get back to the list</button>
+
+<h4>Customer Details</h4>
+<div *ngIf="customer">
+    <p>
+        <strong>Name:</strong> {{ customer.name }} <br>
+        <strong>Email:</strong> {{ customer.email }} <br>
+        <strong>Phone:</strong> {{ customer.phone }} <br>
+    </p>
+</div>

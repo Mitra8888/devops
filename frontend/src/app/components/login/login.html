@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="col-sm-12">
+        <h2>Login</h2>
+    </div>
+    <form [formGroup]="LoginFormControl">
+        <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Email</mat-label>
+                <input matInput type="text" formControlName="email" placeholder="Enter your email" required>
+                <mat-error *ngIf="LoginFormControl.get('email')?.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="LoginFormControl.get('email')?.hasError('email')">
+                    Please enter a <strong>valid email address</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col-sm-6">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Phone</mat-label>
+                <input matInput type="text" formControlName="phone" placeholder="Enter your phone number" required>
+                <mat-error *ngIf="LoginFormControl.get('phone')?.hasError('required')">
+                    Phone is <strong>required</strong>
+                </mat-error>
+                <mat-error *ngIf="LoginFormControl.get('phone')?.hasError('phone')">
+                    Please enter a <strong>valid phone number</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="col-sm-12">
+            <button mat-raised-button color="primary" (click)="onLogin()">Login</button>
+        </div>
+        <div class="col-sm-12">
+            <p>Don't have an account? <a routerLink="/signup">Register here</a></p>
+        </div>
+        
+    </form>
+</div>

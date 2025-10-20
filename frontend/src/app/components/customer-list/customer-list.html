@@ -1,0 +1,22 @@
+
+<button matButton="filled" [routerLink]="'/create'">
+    Create New Customer
+</button>
+<button matButton="filled" [routerLink]="'/home'">
+    Go back to profile
+</button>
+
+<div *ngFor="let customer of customers$ | async" class="customer-card" style="display: flex; align-items: center;">
+    <div>{{ customer.name }} - {{ customer.email }} - {{ customer.phone }}</div>
+    <div style="margin-left: auto;">
+        <button mat-icon-button [routerLink]="'/edit/' + customer._id">
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button [routerLink]="'/details/' + customer._id">
+            <mat-icon>visibility</mat-icon>
+        </button>
+        <button mat-icon-button style="color: red;" (click)="onDeleteClick(customer)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div>
+</div>

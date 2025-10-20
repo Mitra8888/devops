@@ -1,0 +1,13 @@
+<div *ngIf="currentCustomer">
+    <button matButton="filled" (click)="logout()">LogOut</button>
+    <h2>Welcome {{currentCustomer.name}}</h2>
+   
+    <h5>Profile information</h5>
+    <p><strong>ID:</strong>{{currentCustomer._id}}</p>
+    <p><strong>Email:</strong>{{currentCustomer.email}}</p>
+    <p><strong>Phone:</strong>{{currentCustomer.phone}}</p>
+    <p><strong>Birth Date:</strong>{{currentCustomer.date}}</p>
+    <p ><strong>Role:</strong>{{currentCustomer.role}}</p>
+     <button *ngIf ="currentCustomer.role === 'admin'" matButton="filled" [routerLink]="'/list'">
+        Go to Customer List </button>
+</div>
