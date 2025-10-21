@@ -33,7 +33,7 @@ jobs:
               run: cd backend && npm start &
 
             - name: Start frontend (Port 4200)
-              run: cd frontend && npm start
+              run: cd frontend && npm start &
 
             - name: Wait for server
               run:
