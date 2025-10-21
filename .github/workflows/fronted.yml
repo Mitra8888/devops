@@ -20,7 +20,7 @@ jobs:
             - name: Install All Dependencies
               run: |
                 npm ci # Install frontend deps
-                cd backend && npm ci # Install backend deps
+                cd backend && npm install # Install backend deps
             
             - name: Start backend (Port 3000)
               run: cd backend && npm start &
