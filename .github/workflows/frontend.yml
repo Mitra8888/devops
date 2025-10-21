@@ -1,47 +1,50 @@
-name: CI with Cypress and Docker
+name: Frontend e2e
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
-
+    push:
+        branches: ["main"]
+    pull_request:
+        branches: ["main"]
 jobs:
-  e2e-tests:
-    runs-on: ubuntu-latest
-  
-    steps:
-      - uses: actions/checkout@v4
+    e2e-tests:
+        runs-on: ubuntu-latest
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Clean frontend node
-        run: |
-          rm -rf frontend/node_modules
-          npm cache clean --force
+            - name: Setup node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20.x
+            
+            - name: Install front Dependencies
+              run: |
+                cd frontend
+                npm ci
 
-      - name: Install frontend deps
-        run: |
-          cd frontend
-          npm ci &
-      - name: Install backend deps
-        run: |
-          cd backend
-          npm ci &
-      
-      - name: Wait for servers
-        run: 
-          echo "giving servers 10 seconds to initialize"
-          sleep 10
-          echo "Starting wait-on for localhost:4200 and localhost:3000..."
-          npx wait-on http-get://localhost:4200 http-get://localhost:3000 --timeout 60000
 
-      - name: Run Cypress tests
-        uses: cypress-io/github-action@v6
-        with:
-          working-directory: frontend
-          
-          spec: cypress/e2e/login-test/login-test.cy.ts
+            - name: Install back Dependencies
+              run: |
+                cd backend
+                npm ci
+              
+            
+            - name: Start backend (Port 3000)
+              run: | 
+                cd backend
+                nohup npm start -- --host 0.0.0.0. > ../backend.log 2>&1 &
+
+            - name: Start frontend (Port 4200)
+              run: |
+                cd frontend
+                nohup npm start -- --host 0.0.0.0 --port 4200 > ../frontend.log 2>&1 &
+
+            - name: Wait for server
+              run: |
+                  npx wait-on http://localhost:4200 http://localhost:3000/health            
+            - name: Run Cypress tests
+              uses: cypress-io/github-action@v6
+              with:
+                working-directory: frontend
+                spec: cypress/e2e/login-test/login-test.cy.ts
+            
