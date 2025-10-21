@@ -18,6 +18,11 @@ jobs:
         with:
           node-version: 20.x
 
+      - name: Clean frontend node
+        run: |
+          rm -rf frontend/node_modules
+          npm cache clean --force
+
       - name: Install frontend deps
         run: |
           cd frontend
@@ -38,4 +43,5 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: frontend
+          install: false
           spec: cypress/e2e/login-test/login-test.cy.ts
