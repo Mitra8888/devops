@@ -15,12 +15,10 @@ describe('login test', () => {
         cy.wait(2000)
         cy.contains('button', 'Login').click()
 
-         cy.url().then(url => {
-        cy.log("Current URL: " + url)
-        })
+        cy.url().should('include', '/home')
 
       
-        cy.contains('Welcome Cypress')
+        cy.contains('Welcome Cypress',{ timeout: 10000 })
 
         cy.contains('button','LogOut').click()
 
