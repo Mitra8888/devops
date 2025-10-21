@@ -38,4 +38,4 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: frontend
-          spec: frontend/cypress/e2e/login-test/login-test.cy.ts
+          spec: cypress/e2e/login-test/login-test.cy.ts
