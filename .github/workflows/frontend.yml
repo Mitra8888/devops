@@ -32,12 +32,12 @@ jobs:
             - name: Start backend (Port 3000)
               run: | 
                 cd backend
-                nohup npm start -- --host 0.0.0.0. > ../backend.log 2>&1 &
+                npm start -- --host 0.0.0.0. > ../backend.log 2>&1 &
 
             - name: Start frontend (Port 4200)
               run: |
                 cd frontend
-                nohup npm start -- --host 0.0.0.0 --port 4200 > ../frontend.log 2>&1 &
+                npm start -- --host 0.0.0.0 --port 4200 > ../frontend.log 2>&1 &
 
             - name: Wait for server
               run: |
