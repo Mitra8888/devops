@@ -31,7 +31,7 @@ jobs:
 
             - name: Install frontend deps
               run: |
-                cd frontent
+                cd frontend
                 npm ci
             
             
