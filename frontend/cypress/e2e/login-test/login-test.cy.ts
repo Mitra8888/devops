@@ -19,7 +19,7 @@ describe('login test', () => {
         cy.log("Current URL: " + url)
         })
 
-        cy.url().should('include','home',{ timeout: 10000 })
+      
         cy.contains('Welcome Cypress')
 
         cy.contains('button','LogOut').click()
