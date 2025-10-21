@@ -20,27 +20,28 @@ jobs:
             - name: Install front Dependencies
               run: |
                 cd frontend
-                npm install
+                npm ci
 
 
             - name: Install back Dependencies
               run: |
                 cd backend
-                npm install
+                npm ci
               
             
             - name: Start backend (Port 3000)
-              run: cd backend && npm start &
+              run: | 
+                cd backend
+                npm start &
 
             - name: Start frontend (Port 4200)
-              run: cd frontend && npm start &
+              run: |
+                cd frontend
+                npm run start -- --port 4200 --disable-host-check &
 
             - name: Wait for server
               run: |
-                echo "giving servers 10 seconds to initialize"
-                sleep 10
-                echo "Starting wait-on for localhost:4200 and localhost:3000"
-                npx wait-on http-get://localhost:4200 http-get://localhost:3000 --timeout 60000
+                npx wait-on http-get://localhost:4200 http-get://localhost:3000 
             
             - name: Run Cypress tests
               uses: cypress-io/github-action@v6
