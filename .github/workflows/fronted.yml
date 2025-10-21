@@ -17,10 +17,17 @@ jobs:
               with:
                 node-version: 20.x
             
-            - name: Install All Dependencies
+            - name: Install front Dependencies
               run: |
-                npm install # Install frontend deps
-                cd backend && npm install # Install backend deps
+                cd frontend
+                npm install
+
+
+            - name: Install back Dependencies
+              run: |
+                cd backend
+                npm install
+              
             
             - name: Start backend (Port 3000)
               run: cd backend && npm start &
