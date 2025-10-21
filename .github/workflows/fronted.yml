@@ -36,7 +36,7 @@ jobs:
               run: cd frontend && npm start &
 
             - name: Wait for server
-              run:
+              run: |
                 echo "giving servers 10 seconds to initialize"
                 sleep 10
                 echo "Starting wait-on for localhost:4200 and localhost:3000"
