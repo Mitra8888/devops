@@ -29,6 +29,9 @@ jobs:
                   npx wait-on http://localhost:4200 http://localhost:3000           
             
 
+            - name: Clean up node_modules
+              run: rm -rf frontend/node_modules
+
             - name: Install frontend deps
               run: |
                 cd frontend
