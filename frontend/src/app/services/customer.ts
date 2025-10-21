@@ -42,7 +42,7 @@ export class CustomerService {
     return this.http.delete<Customer>(this.api + '/' + id).pipe(tap(() => this.loadCustomers()));
   }
 
-  getCurrentCustomerRole(): 'custoemer' | 'admin' | null {
+  getCurrentCustomerRole(): 'customer' | 'admin' | null {
     const current = this.getCurrentCustomer();
     return current ? current.role : null;
   }

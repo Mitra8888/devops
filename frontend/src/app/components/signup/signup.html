@@ -1,1 +1,52 @@
-<p>signup works!</p>
+<div class="container mat-typography">
+    <mat-icon class="login" (click)="goToLogin()">Already have account</mat-icon>
+    <h2>Create account</h2>
+
+    <form [formGroup]="signupFormControl" (ngSubmit)="onClick()" class="novalidate">
+        <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Full name</mat-label>
+            <input matInput formControlName="name" placeholder="Full name" required>
+            <mat-error *ngIf="signupFormControl.controls['name'].hasError('required') && signupFormControl.controls['name'].touched">
+                Full name is required
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls['name'].hasError('pattern') && signupFormControl.controls['name'].touched">
+                Full name is required
+            </mat-error>
+        </mat-form-field>
+
+         <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="email" required>
+            <mat-error *ngIf="signupFormControl.controls['email'].hasError('required') && signupFormControl.controls['email'].touched">
+               Email is required
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls['email'].hasError('pattern') && signupFormControl.controls['email'].touched">
+                Email is required
+            </mat-error>
+        </mat-form-field>
+
+         <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Phone number</mat-label>
+            <input matInput formControlName="phone" placeholder="+01 23 456 789" required>
+            <mat-error *ngIf="signupFormControl.controls['phone'].hasError('required') && signupFormControl.controls['phone'].touched">
+                Phone number is required
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls['phone'].hasError('pattern') && signupFormControl.controls['phone'].touched">
+                Phone number is required
+            </mat-error>
+        </mat-form-field>
+
+         <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Birth date</mat-label>
+            <input matInput formControlName="date" placeholder="01.01.2000." required>
+            <mat-error *ngIf="signupFormControl.controls['date'].hasError('required') && signupFormControl.controls['date'].touched">
+                Birth date is required
+            </mat-error>
+            <mat-error *ngIf="signupFormControl.controls['date'].hasError('pattern') && signupFormControl.controls['date'].touched">
+                Birth date is required
+            </mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="accent" type="submit">Register</button>
+    </form>
+</div>

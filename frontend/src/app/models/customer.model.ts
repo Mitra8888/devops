@@ -3,6 +3,6 @@ export class Customer{
     name!: string;
     email!: string;
     phone!: string;
-    role!: 'custoemer' | 'admin';
+    role!: 'customer' | 'admin';
     date!:Date
 }

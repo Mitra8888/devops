@@ -1,30 +1,43 @@
 /// <reference types="cypress" />
 
 
-describe('login test', () => {
-    it('open the login page', ()=>{
+describe('register test', () => {
+    it('open the register page', ()=>{
         cy.visit('http://localhost:4200')
     })
+
 
     it('Test functions', ()=>{
         cy.visit('http://localhost:4200')
 
-        cy.get('input[formControlName="email"]').type('e2etest@gmail.com')
+
+        cy.get('input[formControlName="name"').type('Cypress')
+        cy.get('input[formControlName="email"]').type('test@gmail.com')
         cy.get('input[formControlName="phone"]').type('123456')
+        cy.get('input[formControlName="date"').type('01.01.2001.')
+        
 
         cy.wait(2000)
-        cy.contains('button', 'Login').click()
+        cy.contains('button', 'Register').click()
 
-        cy.url().should('include', '/home')
 
-      
-        cy.contains('Welcome Cypress',{ timeout: 10000 })
-
-        cy.contains('button','LogOut').click()
-
-        cy.url().should('include','login',{ timeout: 10000 })
-        cy.contains('Login')
+        cy.wait(2000)
+        cy.url().should('include', '/login')
     })
+    it('Login test',()=>{
+        cy.visit('http://localhost:4200/login')
 
+        cy.get('input[formControlName="email"').type('test@gmail.com')
+        cy.get('input[formControlName="phone"').type('123456')
+
+        cy.wait(2000)
+        cy.contains('button','Login').click()
+
+        cy.wait(2000)
+        cy.url().should('include','/home')
+
+        cy.contains('Welcome Cypress',{timeout: 10000})
+
+    })
 
 })
