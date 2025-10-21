@@ -43,5 +43,5 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           working-directory: frontend
-          install: false
+          
           spec: cypress/e2e/login-test/login-test.cy.ts
