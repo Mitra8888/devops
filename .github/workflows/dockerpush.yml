@@ -2,7 +2,7 @@ name: docker build and push
 
 on:
     workflow_run:
-        workflows: ["frontend"]
+        workflows: ["Frontend e2e"]
         types:
             - completed
 
@@ -24,7 +24,7 @@ jobs:
                 echo "VERSION=$VERSION" >> $GITHUB_ENV
 
                 PROJECT_NAME="devapp"
-                echo "PROJECT=NAME=$PROJECT_NAME" >> $GITHUB_ENV
+                echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
             
             - name: Build docker images with docker compose
               run: |
@@ -38,7 +38,7 @@ jobs:
                 docker tag $FRONTEND_IMAGE_ID $FRONTEND_REPO:latest
                 docker push $FRONTEND_REPO:latest
 
-                docekr tag $FRONTEND_IMAGE_ID $FRONTEND_REPO:$VERSION
+                docker tag $FRONTEND_IMAGE_ID $FRONTEND_REPO:$VERSION
                 docker push $FRONTEND_REPO:$VERSION
 
                 BACKEND_REPO="uros02/mitra88-devapp-backend"
