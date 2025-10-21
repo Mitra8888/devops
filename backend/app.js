@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
     res.send('Welcome to Customers API!');
 });
 
-app.listen(port, (error) => {
+app.listen(port,'0.0.0.0', (error) => {
     if (!error)
         console.log("Server is Successfully Running, and App is listening on port " + port);
     else
