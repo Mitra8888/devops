@@ -45,5 +45,6 @@ jobs:
             - name: Run Cypress tests
               uses: cypress-io/github-action@v6
               with:
-                spec: frontend/cypress/e2e/login-test/login-test.cy.ts
+                working-directory: frontend
+                spec: cypress/e2e/login-test/login-test.cy.ts
             
