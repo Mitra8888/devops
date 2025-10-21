@@ -27,6 +27,14 @@ jobs:
             - name: Wait for server
               run: |
                   npx wait-on http://localhost:4200 http://localhost:3000           
+            
+
+            - name: Install frontend deps
+              run: |
+                cd frontent
+                npm ci
+            
+            
             - name: Run Cypress tests
               uses: cypress-io/github-action@v6
               with:
