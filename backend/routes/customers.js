@@ -69,4 +69,42 @@ router.delete('/:id', async (req, res) => {
     }
 });
 
+router.get('/:id/tasks', async (req, res)=>{
+    try {
+        const customer = await Customer.findById( req.params.id);
+        if (!customer) return res.status(404).json ({ message: 'Customer not found'});
+        res.json(customer.tasks);
+    } catch(error){
+        res.status(500).json({message:"Server Error"});
+    }
+})
+
+router.post ('/:id/tasks', async (req, res)=>{
+    try{
+        const { name } = req.body;
+        const customer = await Customer.findById(req.params.id);
+        if (!customer) return res.status(404).json({ message: 'Customer not found'});
+        const newTask  = {id: customer.tasks.length, name};
+        customer.tasks.push(newTask);
+        await customer.save();
+        res.json(customer.tasks);
+    } catch(error){
+        res.status(500).json({message:"Server Error"});
+    }
+})
+
+router.delete('/:id/tasks/:taskId', async (req, res)=>{
+    try{
+        const {id, taskId} = req.params;
+        const customer = await Customer.findById(id);
+        if (!customer) return res.status(404).json({ message: 'Customer not found'});
+
+        customer.tasks = customer.tasks.filter(task => task.id != taskId);
+        await customer.save();
+        res.json(customer.tasls);
+    }catch(error){
+        res.status(500).json({message:"Server Error"});
+    }
+})
+
 module.exports = router;

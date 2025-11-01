@@ -8,4 +8,17 @@
         <strong>Email:</strong> {{ customer.email }} <br>
         <strong>Phone:</strong> {{ customer.phone }} <br>
     </p>
+      <div>
+            <input [(ngModel)]="task" type="text" palceholder="enter task name">
+            <button (click)="addTask()">Add Task</button>
+
+          <div *ngIf ="taskList.length > 0" >
+             
+                <ul *ngFor="let task of taskList" style="display: flex; justify-content: space-between; list-style: none;">
+                    <li>{{task.id}}</li>
+                    <li>{{task.name}}</li>
+                    <li><button (click)="deleteTask(task.id)">Delete</button></li>
+                </ul>
+            
+          </div> 
 </div>

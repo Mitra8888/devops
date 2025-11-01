@@ -11,7 +11,14 @@ export class CustomerService {
 
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$= this.customersSubject.asObservable();
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    if (typeof window !== 'undefined') {
+  const storedCustomer = localStorage.getItem('currentCustomer');
+  if (storedCustomer) {
+    this.currentCustomerSubject.next(JSON.parse(storedCustomer));
+  }
+}
+   }
 
   private currentCustomerSubject = new BehaviorSubject<Customer | null>(null);
   currentCustomer$ = this.currentCustomerSubject.asObservable();
@@ -49,7 +56,10 @@ export class CustomerService {
 
   setCurrentCustomer(customer: Customer): void {
     this.currentCustomerSubject.next(customer);
-    sessionStorage.setItem('currentCustomer', JSON.stringify(customer));
+    this.currentCustomerSubject.next(customer);
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('currentCustomer', JSON.stringify(customer));
+  }
   }
 
   getCurrentCustomer(): Customer | null {
@@ -57,11 +67,23 @@ export class CustomerService {
   }
 
   clearCurrentCustomer(): void {
-    this.currentCustomerSubject.next(null);
-    sessionStorage.removeItem('currentCustomer');
+     this.currentCustomerSubject.next(null);
+  if (typeof window !== 'undefined') {
+    localStorage.removeItem('currentCustomer');
+  }
   }
 
   isLoggedIn(): boolean {
     return this.customersSubject.value.length !== 0;
+  }
+
+  getTasks(customerId: string): Observable<any[]>{
+    return this.http.get<any[]>(`${this.api}/${customerId}/tasks`);
+  }
+  addTask(customerId: string, taskName: string): Observable<any[]>{
+    return this.http.post<any[]>(`${this.api}/${customerId}/tasks`, {name: taskName});
+  }
+  deleteTask(customerId: string, taskId: number):  Observable<any[]>{
+    return this.http.delete<any[]>(`${this.api}/${customerId}/tasks/${taskId}`);
   }
 }

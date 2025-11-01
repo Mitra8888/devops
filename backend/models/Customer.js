@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const TaskSchema = new mongoose.Schema({
+    id:{
+        type: Number,
+        required: true
+    },
+    name:{
+        type: String,
+        required: true
+    }
+});
+
 const CustomerSchema = mongoose.Schema({
     date: {
         type: Date,
@@ -21,7 +32,13 @@ const CustomerSchema = mongoose.Schema({
         type: String,
         enum: ['customer', 'admin'],
         default: 'customer'
+    },
+
+    tasks: {
+        type: [TaskSchema],
+        default: []
     }
+
 
 });
 

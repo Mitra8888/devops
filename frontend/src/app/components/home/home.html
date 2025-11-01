@@ -10,4 +10,18 @@
     <p ><strong>Role:</strong>{{currentCustomer.role}}</p>
      <button *ngIf ="currentCustomer.role === 'admin'" matButton="filled" [routerLink]="'/list'">
         Go to Customer List </button>
+        <div>
+            <input [(ngModel)]="task" type="text" palceholder="enter task name">
+            <button (click)="addTask()">Add Task</button>
+
+          <div >
+             <ul *ngFor="let task of taskList" style="display: flex; justify-content: space-between; list-style: none;">
+                    <li>{{task.id}}</li>
+                    <li>{{task.name}}</li>
+                    <li><button (click)="deleteTask(task.id)">Delete</button></li>
+                </ul>
+          </div>  
+            
+        </div>
 </div>
+

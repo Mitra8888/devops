@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+const path = require('path');
 
 const app = express();
 const port = 3000;
@@ -14,9 +15,13 @@ const customerRoutes = require('./routes/customers');
 // use the customer routes
 app.use('/api/customers', customerRoutes);
 
-app.get('/', (req, res) => {
-    res.send('Welcome to Customers API!');
+const anuglarDistPath = path.join(__dirname, '../frontend/dist/frontend');
+app.use(express.static(anuglarDistPath));
+app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(anuglarDistPath, 'index.html'));
 });
+
+
 
 app.get('/health', (req, res)=>{
     const dbReady = mongoose.connection.readyState ===1;
