@@ -27,12 +27,12 @@ jobs:
             - name: Start backend
               run: |
                 cd backend
-                npm start
+                npm start &
 
             - name: Start frontend
               run: |
                 cd frontend
-                npm start
+                npm start &
 
 
             - name: Wait for server
