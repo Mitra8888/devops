@@ -2,7 +2,7 @@ name: docker build and push
 
 on:
     workflow_run:
-        workflows: ["Frontend e2e"]
+        workflows: ["e2e"]
         types:
             - completed
 
