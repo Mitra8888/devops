@@ -46,7 +46,7 @@ async function startServer(){
             console.log('server is running on port ${port}');
         });
     } catch (error){
-        console.errror("failed to connect to mongodb", error);
+        console.error("failed to connect to mongodb", error);
         process.exit(1);
     }
 } 
