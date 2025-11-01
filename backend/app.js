@@ -15,11 +15,7 @@ const customerRoutes = require('./routes/customers');
 // use the customer routes
 app.use('/api/customers', customerRoutes);
 
-const anuglarDistPath = path.join(__dirname, '../frontend/dist/frontend');
-app.use(express.static(anuglarDistPath));
-app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(anuglarDistPath, 'index.html'));
-});
+
 
 
 

@@ -22,24 +22,25 @@ export class CustomerDetails implements OnInit {
   task: string ='';
   taskList: {id: number, name: string}[] =[]
   ngOnInit(): void {
-    // get customer id from url
-    this.customerID = this.activatedRouter.snapshot.params['id'];
-    
-   if (this.customerID) {
-    this.customerService.getById(this.customerID).subscribe({
-      next: (data) => {
-        console.log ('Customer data fro mservice:', data);
+   this.activatedRouter.paramMap.subscribe(params =>{
+    const id = params.get('id');
+    if (!id) return;
 
-       this.customer = Array.isArray(data) ? data[0] : data;
+    this.customerService.getById(id).subscribe({
+      next: (data) =>{
+        console.log ('Customer data from service:', data);
 
-       if (this.customer?._id){
-        this.customerService.getTasks(this.customer._id).subscribe(tasks =>{
-          this.taskList = tasks;
-        })
-       }
-      }
+        this.customer = Array.isArray(data) ? data[0] : data;
+
+        if (this.customer?._id){
+          this.customerService.getTasks(this.customer._id).subscribe(tasks =>{
+            this.taskList = tasks;
+          });
+        }
+      },
+      error: err => console.error('Error loading customer:', err)
     })
-   }
+   })
    
   }
 
