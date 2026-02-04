@@ -1,15 +1,22 @@
-FROM node:25-alpine
-
+# Stage 1 Build the frontend application
+FROM node:20-alpine AS web-build
 WORKDIR /app
 
-RUN npm install -g @angular/cli
+#Copy only package.json files 
+COPY package*.json ./
+RUN npm ci
 
-COPY package.json ./
+#Copy only frontend source code
+COPY . ./
+RUN npm run build  
 
-RUN npm install
+#Stage 2 produce the final image
+FROM nginx:alpine
 
-COPY . .
+#Copy build files from the build stage
+COPY --from=web-build /app/dist/frontend/browser /usr/share/nginx/html
 
-EXPOSE 4200
+#Copt nginx configuration file
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
 
-CMD ["npm", "start"]

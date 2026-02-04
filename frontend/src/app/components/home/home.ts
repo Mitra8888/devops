@@ -1,43 +1,36 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Customer } from '../../models/customer.model';
-import { Subscription } from 'rxjs';
-import { CustomerService } from '../../services/customer';
-import { Router, RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatAnchor } from "@angular/material/button";
+import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatAnchor } from "@angular/material/button";
+import { CustomerService } from '../../services/customer';
+import { Customer } from '../../models/customer.model';
+import { Observable, of, switchMap, tap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [CommonModule, RouterModule, MatAnchor, FormsModule],
   templateUrl: './home.html',
-  styleUrl: './home.css'
+  styleUrls: ['./home.css']
 })
-export class Home implements OnInit, OnDestroy{
+export class Home {
+  private customerService = inject(CustomerService);
+  private router = inject(Router);
 
-  currentCustomer: Customer | null = null;
-  private customerSubscription: Subscription | undefined;
-  task="";
-  taskList:{id:number,name:string}[]=[]
+  // 👇 Make everything reactive
+  currentCustomer$!: Observable<Customer | null>;
+  taskList$!: Observable<{ id: number; name: string }[]>;
+  task = '';
 
-  constructor(
-    private customerService: CustomerService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.customerSubscription = this.customerService.currentCustomer$.subscribe(customer => {
-      this.currentCustomer = customer;
-
-      if (customer?._id){
-        this.customerService.getTasks(customer._id).subscribe(tasks => {
-          this.taskList = tasks;
-        })
-      }
-    });
-  }
-  ngOnDestroy(): void {
-    this.customerSubscription?.unsubscribe();
+  constructor() {
+    // Whenever the current customer changes, re-fetch their tasks
+    this.currentCustomer$ = this.customerService.currentCustomer$;
+    this.taskList$ = this.customerService.currentCustomer$.pipe(
+      switchMap(customer =>
+        customer?._id ? this.customerService.getTasks(customer._id) : of([])
+      )
+    );
   }
 
   logout(): void {
@@ -45,20 +38,16 @@ export class Home implements OnInit, OnDestroy{
     this.router.navigate(['/login']);
   }
 
-  addTask(){
-    if(!this.currentCustomer?._id|| !this.task.trim()) return;
-    
-    this.customerService.addTask(this.currentCustomer._id, this.task).subscribe(task =>{
-      this.taskList = this.taskList;
-      this.task = ""
-    })
-   
+  addTask(customerId: string) {
+    if (!customerId || !this.task.trim()) return;
+
+    this.taskList$ = this.customerService.addTask(customerId, this.task).pipe(
+      tap(() => (this.task = ''))
+    );
   }
-  
-  deleteTask(id:number){
-    if (!this.currentCustomer?._id) return;
-    this.customerService.deleteTask(this.currentCustomer._id, id).subscribe(tasks =>{
-      this.taskList = tasks;
-    })
+
+  deleteTask(customerId: string, id: number) {
+    if (!customerId) return;
+    this.taskList$ = this.customerService.deleteTask(customerId, id);
   }
 }

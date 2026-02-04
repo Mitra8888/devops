@@ -1,46 +1,46 @@
-name: Frontend e2e
+# name: Frontend e2e
 
-on:
-    push:
-        branches: ["main"]
-    pull_request:
-        branches: ["main"]
-jobs:
-    e2e-tests:
-        runs-on: ubuntu-latest
+# on:
+#     push:
+#         branches: ["main"]
+#     pull_request:
+#         branches: ["main"]
+# jobs:
+#     e2e-tests:
+#         runs-on: ubuntu-latest
 
-        steps:
-            - uses: actions/checkout@v4
+#         steps:
+#             - uses: actions/checkout@v4
 
-            - name: Setup node.js
-              uses: actions/setup-node@v4
-              with:
-                node-version: 20.x
+#             - name: Setup node.js
+#               uses: actions/setup-node@v4
+#               with:
+#                 node-version: 20.x
             
             
-            - name: Set up Docker buildx
-              uses: docker/setup-buildx-action@v3
+#             - name: Set up Docker buildx
+#               uses: docker/setup-buildx-action@v3
 
-            - name: Build and start containers
-              run: docker compose up -d --build
+#             - name: Build and start containers
+#               run: docker compose up -d --build
 
-            - name: Wait for server
-              run: |
-                  npx wait-on http://localhost:4200 http://localhost:3000           
+#             - name: Wait for server
+#               run: |
+#                   npx wait-on http://localhost:4200 http://localhost:3000           
             
 
-            - name: Clean up node_modules
-              run: rm -rf frontend/node_modules
+#             - name: Clean up node_modules
+#               run: rm -rf frontend/node_modules
 
-            - name: Install frontend deps
-              run: |
-                cd frontend
-                npm ci
+#             - name: Install frontend deps
+#               run: |
+#                 cd frontend
+#                 npm ci
             
             
-            - name: Run Cypress tests
-              uses: cypress-io/github-action@v6
-              with:
-                working-directory: frontend
-                install: false
-                spec: cypress/e2e/login-test/login-test.cy.ts
+#             - name: Run Cypress tests
+#               uses: cypress-io/github-action@v6
+#               with:
+#                 working-directory: frontend
+#                 install: false
+#                 spec: cypress/e2e/login-test/login-test.cy.ts

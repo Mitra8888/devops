@@ -15,35 +15,32 @@ const customerRoutes = require('./routes/customers');
 // use the customer routes
 app.use('/api/customers', customerRoutes);
 
+app.get('/health', (req, res) => {
+    const dbReady = mongoose.connection.readyState === 1;
+    res.status(dbReady ? 200 : 500).json({ mongoConnected: dbReady });
+});
 
-
-
-
-app.get('/health', (req, res)=>{
-    const dbReady = mongoose.connection.readyState ===1;
-    res.status(dbReady ? 200: 500).json({ mongoConnected:dbReady});
-})
-
-
-async function startServer(){
+async function startServer() {
     try {
+        // Use Docker MongoDB instead of cloud
         const connectionString =
-        process.env.MONGO_URI ||
-        "mongodb+srv://mitra:mitra@mitra.rjpyleu.mongodb.net/?retryWrites=true&w=majority&appName=Mitra";
+            process.env.MONGO_URI ||
+            "mongodb://mongo:27017/myappdb";
 
         mongoose.set('strictQuery', true);
-        await mongoose.connect(connectionString, {
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-        });
-        console.log("Connected to MongoDb");
+        
+        // Remove deprecated options
+        await mongoose.connect(connectionString);
+        
+        console.log("Connected to MongoDB");
 
-        app.listen(port, '0.0.0.0', ()=>{
-            console.log('server is running on port ${port}');
+        app.listen(port, '0.0.0.0', () => {
+            console.log(`Server is running on port ${port}`); // Fixed: use backticks
         });
-    } catch (error){
-        console.error("failed to connect to mongodb", error);
+    } catch (error) {
+        console.error("Failed to connect to MongoDB", error);
         process.exit(1);
     }
-} 
+}
+
 startServer();

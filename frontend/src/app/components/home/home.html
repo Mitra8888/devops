@@ -1,27 +1,39 @@
-<div *ngIf="currentCustomer">
-    <button matButton="filled" (click)="logout()">LogOut</button>
-    <h2>Welcome {{currentCustomer.name}}</h2>
-        
-    <h5>Profile information</h5>
-    <p><strong>ID:</strong>{{currentCustomer._id}}</p>
-    <p><strong>Email:</strong>{{currentCustomer.email}}</p>
-    <p><strong>Phone:</strong>{{currentCustomer.phone}}</p>
-    <p><strong>Birth Date:</strong>{{currentCustomer.date}}</p>
-    <p ><strong>Role:</strong>{{currentCustomer.role}}</p>
-     <button *ngIf ="currentCustomer.role === 'admin'" matButton="filled" [routerLink]="'/list'">
-        Go to Customer List </button>
-        <div>
-            <input [(ngModel)]="task" type="text" palceholder="enter task name">
-            <button (click)="addTask()">Add Task</button>
+<div *ngIf="currentCustomer$ | async as currentCustomer">
+  <button matButton="filled" (click)="logout()">LogOut</button>
+  <h2>Welcome {{ currentCustomer.name }}</h2>
 
-          <div >
-             <ul *ngFor="let task of taskList" style="display: flex; justify-content: space-between; list-style: none;">
-                    <li>{{task.id}}</li>
-                    <li>{{task.name}}</li>
-                    <li><button (click)="deleteTask(task.id)">Delete</button></li>
-                </ul>
-          </div>  
-            
-        </div>
+  <h5>Profile information</h5>
+  <p><strong>ID:</strong> {{ currentCustomer._id }}</p>
+  <p><strong>Email:</strong> {{ currentCustomer.email }}</p>
+  <p><strong>Phone:</strong> {{ currentCustomer.phone }}</p>
+  <p><strong>Birth Date:</strong> {{ currentCustomer.date }}</p>
+  <p><strong>Role:</strong> {{ currentCustomer.role }}</p>
+
+  <button
+    *ngIf="currentCustomer.role === 'admin'"
+    matButton="filled"
+    [routerLink]="'/list'"
+  >
+    Go to Customer List
+  </button>
+
+  <div class="task-controls">
+    <input [(ngModel)]="task" type="text" placeholder="Enter task name" />
+    <button (click)="addTask(currentCustomer._id)">Add Task</button>
+  </div>
+
+  <div *ngIf="taskList$ | async as taskList">
+    <ul
+      *ngFor="let task of taskList"
+      style="display: flex; justify-content: space-between; list-style: none;"
+    >
+      <li>{{ task.id }}</li>
+      <li>{{ task.name }}</li>
+      <li>
+        <button (click)="deleteTask(currentCustomer._id, task.id)">
+          Delete
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
-

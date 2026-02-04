@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { Customer } from 'src/app/models/customer.model';
 import { MatIcon } from "@angular/material/icon";
 import { MatFormField, MatLabel, MatInput, MatError } from "@angular/material/input";
@@ -10,7 +10,7 @@ import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-signup',
-  imports: [MatIcon, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, CommonModule, MatAnchor],
+  imports: [MatIcon, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, CommonModule, MatAnchor, RouterModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })

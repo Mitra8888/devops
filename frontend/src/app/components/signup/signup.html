@@ -1,5 +1,4 @@
 <div class="container mat-typography">
-    <mat-icon class="login" (click)="goToLogin()">Already have account</mat-icon>
     <h2>Create account</h2>
 
     <form [formGroup]="signupFormControl" (ngSubmit)="onClick()" class="novalidate">
@@ -48,5 +47,8 @@
         </mat-form-field>
 
         <button mat-raised-button color="accent" type="submit">Register</button>
+        <div class="col-sm-12">
+            <p>Already have account? <a routerLink="/login">Login here</a></p>
+        </div>
     </form>
 </div>

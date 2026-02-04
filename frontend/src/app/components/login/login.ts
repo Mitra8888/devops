@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Customer } from '../../models/customer.model';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CustomerService } from '../../services/customer';
 import { MatInputModule } from "@angular/material/input";
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, MatInputModule, CommonModule],
+  imports: [ReactiveFormsModule, MatInputModule, CommonModule, RouterModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
