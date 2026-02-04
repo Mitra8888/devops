@@ -21,7 +21,7 @@ jobs:
                 VERSION="1.${GITHUB_RUN_NUMBER}"
                 echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-                PROJECT_NAME="devapp"
+                PROJECT_NAME="devops"
                 echo "PROJECT_NAME=$PROJECT_NAME" >> $GITHUB_ENV
             
             - name: Build docker images with docker compose
@@ -30,7 +30,7 @@ jobs:
 
             - name: Retag and Push images
               run: |
-                FRONTEND_REPO="uros02/mitra88-devapp-frontend"
+                FRONTEND_REPO="uros02/mitra88-devops-frontend"
                 FRONTEND_IMAGE_ID=$(docker images -q ${PROJECT_NAME}-frontend)
 
                 docker tag $FRONTEND_IMAGE_ID $FRONTEND_REPO:latest
@@ -39,7 +39,7 @@ jobs:
                 docker tag $FRONTEND_IMAGE_ID $FRONTEND_REPO:$VERSION
                 docker push $FRONTEND_REPO:$VERSION
 
-                BACKEND_REPO="uros02/mitra88-devapp-backend"
+                BACKEND_REPO="uros02/mitra88-devops-backend"
                 BACKEND_IMAGE_ID=$(docker images -q ${PROJECT_NAME}-backend)
 
                 docker tag $BACKEND_IMAGE_ID $BACKEND_REPO:latest
@@ -48,5 +48,5 @@ jobs:
                 docker tag $BACKEND_IMAGE_ID $BACKEND_REPO:$VERSION
                 docker push $BACKEND_REPO:$VERSION
 
-                MONGO_REPO="uros02/mitra88-devapp-mongo"
+                MONGO_REPO="uros02/mitra88-devops-mongo"
                 MONGO_IMAGE_ID=$(docker images -q ${PROJECT_NAME}-mongo)
