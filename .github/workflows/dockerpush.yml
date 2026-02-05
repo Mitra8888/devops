@@ -47,6 +47,3 @@ jobs:
 
                 docker tag $BACKEND_IMAGE_ID $BACKEND_REPO:$VERSION
                 docker push $BACKEND_REPO:$VERSION
-
-                MONGO_REPO="uros02/mitra88-devops-mongo"
-                MONGO_IMAGE_ID=$(docker images -q ${PROJECT_NAME}-mongo)
