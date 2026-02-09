@@ -10,6 +10,9 @@ RUN npm ci
 COPY . ./
 RUN npm run build  
 
+#index.csr.html rename to index.html
+RUN mv dist/frontend/browser/index.csr.html dist/frontend/browser/index.html
+
 #Stage 2 produce the final image
 FROM nginx:alpine
 
