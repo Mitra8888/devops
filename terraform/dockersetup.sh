@@ -78,7 +78,7 @@ docker exec mongo mongosh myappdb --eval "
      tasks: []
  })
 "
-# # Instaliranje nove verzije docker compose-a
+# ## Instaliranje nove verzije docker compose-a
 # apt install -y docker-compose-plugin
 
 #Pullovanje repozitorijuma i pokretanje containera
