@@ -35,7 +35,7 @@ export class Login implements OnInit {
   }
 
   getCustomers(): void {
-    const url = 'http://localhost:3000/api/customers';
+    const url = '/api/customers';
     this.http.get<Customer[]>(url).subscribe({
       next: (res) => {
         console.log('Customers fetched successfully');

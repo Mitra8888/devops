@@ -44,7 +44,7 @@ export class Signup {
       role: 'customer'
     }
 
-      const url = 'http://localhost:3000/api/customers';
+      const url = '/api/customers';
       this.http.post<Customer>(url, newCustomer).subscribe({
         next: (response) => {
           console.log('Signed up successfully', response);

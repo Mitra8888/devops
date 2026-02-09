@@ -34,7 +34,7 @@ services:
       - mongo-data:/data/db
     
   backend:
-    image: uros02/mitra88-devops-backend:1.13
+    image: uros02/mitra88-devops-backend:1.15
     container_name: backend
     restart: always
     ports:
@@ -47,7 +47,7 @@ services:
       - /app/node_modules
     
   frontend:
-    image: uros02/mitra88-devops-frontend:1.13
+    image: uros02/mitra88-devops-frontend:1.15
     container_name: frontend
     restart: always
     ports:
