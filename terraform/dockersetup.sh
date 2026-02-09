@@ -34,7 +34,7 @@ services:
       - mongo-data:/data/db
     
   backend:
-    image: uros02/mitra88-devops-backend:1.11
+    image: uros02/mitra88-devops-backend:1.13
     container_name: backend
     restart: always
     ports:
@@ -47,7 +47,7 @@ services:
       - /app/node_modules
     
   frontend:
-    image: uros02/mitra88-devops-frontend:1.11
+    image: uros02/mitra88-devops-frontend:1.13
     container_name: frontend
     restart: always
     ports:
@@ -92,7 +92,7 @@ docker exec mongo mongosh myappdb --eval "
 # sleep 10
 
 # #Dodavanje admin korisnika u bazu
-# sudo docker exec -it mongo_tf mongosh myappdb --eval '
+# sudo docker exec -it mongo mongosh myappdb --eval '
 
 # db.customers.insertOne({
 #     name: "Admin",
