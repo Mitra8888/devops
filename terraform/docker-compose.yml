@@ -1,0 +1,39 @@
+version: "3.8"
+
+services:
+
+  mongo:
+    image: mongo:8.0
+    container_name: mongo_tf
+    restart: always
+    ports: 
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    
+  backend:
+    image: uros02/mitra88-devops-backend:1.6
+    container_name: backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/myappdb
+    depends_on:
+      - mongo
+    volumes:
+      - /app/node_modules
+    
+  frontend:
+    image: uros02/mitra88-devops-frontend:1.6
+    container_name: frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    volumes:
+      - /app/node_modules
+
+volumes:
+  mongo-data:

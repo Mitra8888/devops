@@ -1,1 +1,3 @@
-terraform/
+.terraform/
+devops-key.pem
+devops-key.pem.pub

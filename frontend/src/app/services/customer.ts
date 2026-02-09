@@ -7,7 +7,7 @@ import { Customer } from '../models/customer.model';
   providedIn: 'root'
 })
 export class CustomerService {
-  private api = 'http://localhost:3000/api/customers';
+  private api = '/api';
 
   private customersSubject = new BehaviorSubject<Customer[]>([]);
   customers$= this.customersSubject.asObservable();
