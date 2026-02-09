@@ -34,7 +34,7 @@ services:
       - mongo-data:/data/db
     
   backend:
-    image: uros02/mitra88-devops-backend:1.16
+    image: uros02/mitra88-devops-backend:1.17
     container_name: backend
     restart: always
     ports:
@@ -47,7 +47,7 @@ services:
       - /app/node_modules
     
   frontend:
-    image: uros02/mitra88-devops-frontend:1.16
+    image: uros02/mitra88-devops-frontend:1.17
     container_name: frontend
     restart: always
     ports:
@@ -63,12 +63,14 @@ EOF
 
 docker compose up -d
 
-until docker exec mongo mongo --eval "print(\"MongoDB is ready\")"; do
+until docker exec mongo mongosh --quiet --eval "db.adminCommand('ping')" > /dev/null 2>&1; do
   echo "Waiting for MongoDB..."
   sleep 2
 done
 
-docker exec mongo mongosh myappdb --eval "
+echo "MongoDB is ready! Inserting admin user..."
+
+sudo docker exec mongo mongosh myappdb --eval "
  db.customers.insertOne({
      name: 'Admin',
      email: 'admin@gmail.com',
