@@ -1,16 +1,15 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { Customer } from 'src/app/models/customer.model';
-import { MatIcon } from "@angular/material/icon";
 import { MatFormField, MatLabel, MatInput, MatError } from "@angular/material/input";
 import { CommonModule } from '@angular/common';
 import { MatAnchor } from "@angular/material/button";
 
 @Component({
   selector: 'app-signup',
-  imports: [MatIcon, ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, CommonModule, MatAnchor, RouterModule],
+  imports: [ ReactiveFormsModule, MatFormField, MatLabel, MatInput, MatError, CommonModule, MatAnchor, RouterModule],
   templateUrl: './signup.html',
   styleUrl: './signup.css'
 })
@@ -19,6 +18,7 @@ export class Signup {
   signupFormControl: FormGroup;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  private platformId = inject(PLATFORM_ID);
 
   constructor(
     private fb: FormBuilder,
