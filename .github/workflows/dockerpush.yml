@@ -1,8 +1,12 @@
 name: docker build and push
 on:
-    push:
-        branches:
-            - main
+  push:
+    branches:
+      - main
+    paths:
+      - backend/**
+      - frontend/**
+      - docker-compose.yml
 
 jobs:
     build:
