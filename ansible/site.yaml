@@ -1,0 +1,27 @@
+- name: Configure Prometheus
+  hosts: prometheus
+  become: true
+  roles:
+    - common
+    - prometheus
+
+- name: Configure Grafana
+  hosts: grafana
+  become: true
+  roles:
+    - common
+    - grafana
+
+- name: Configure Loki
+  hosts: loki
+  become: true
+  roles:
+    - common
+    - loki
+
+- name: Configure node exporter
+  hosts: devops
+  become: true
+  roles:
+    - common
+    - devops

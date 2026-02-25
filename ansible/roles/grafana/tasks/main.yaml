@@ -1,0 +1,17 @@
+- name: create grafana docker volume
+  ansible.builtin.docker_volume:
+    name: grafana-storage
+    state: present
+
+- name: create and start grafana container
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana-enterprise
+    state: started
+    restart_policy: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-storage:/var/lib/grafana
+  
+    

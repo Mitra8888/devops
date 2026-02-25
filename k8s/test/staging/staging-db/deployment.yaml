@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: staging-mongodb-deployment
+  namespace: staging
+  labels:
+    app: staging-mongodb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: staging-mongodb
+  template:
+    metadata:
+      labels:
+        app: staging-mongodb
+    spec:
+      containers:
+      - name: staging-mongodb
+        image: mongo:8.0
+        ports:
+        - containerPort: 27017
+        volumeMounts:
+        - name: staging-mongodb-data
+          mountPath: /data/db
+      volumes:
+      - name: staging-mongodb-data
+        persistentVolumeClaim:
+          claimName: staging-mongodb-pvc

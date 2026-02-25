@@ -1,8 +1,10 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mongodb-pvc
-  namespace: devops
+  name: production-mongodb-pvc
+  namespace: production
+  labels:
+    app: production-mongodb
 spec:
   accessModes:
     - ReadWriteOnce

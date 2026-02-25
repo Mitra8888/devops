@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: devops
+  labels:
+    name: devops
+  finalizers:
+    - kubernetes
+## add finalizer to prevent deletion of namespace until all resources are deleted, learn how to remove finalizer if namespace is stuck in terminating state
+## kubectl edit namespace devops - section metadata: finalizer: []

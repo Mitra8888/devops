@@ -14,3 +14,11 @@ variable "amiID" {
     us-east-1 = "ami-0b6c6ebed2801a5cb"
   }
 }
+
+variable "ZONE1" {
+  default = "us-east-1a"
+}
+
+variable "ZONE2" {
+  default = "us-east-1b"
+}

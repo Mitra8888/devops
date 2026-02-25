@@ -1,3 +1,4 @@
 .terraform/
 terraform/devops-key
 terraform/devops-key.pub
+ansible/devops-key

@@ -23,3 +23,6 @@ COPY --from=web-build /app/dist/frontend/browser /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 
+# Add nginx server as a separate deployment/pod to serve frontend files, 
+# TO-DO // ADVANCED - learn how to use nginx ingress controller to route traffic to nginx server and backend api server, learn how to use configmap to configure nginx server, learn how to use cert-manager to manage ssl certificates for nginx server
+
