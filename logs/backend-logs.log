@@ -1,0 +1,6 @@
+
+> backend@1.0.0 start
+> node app.js
+
+Connected to MongoDB
+Server is running on port 3000
