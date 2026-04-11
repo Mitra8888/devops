@@ -83,10 +83,12 @@
                 "glob": "**/*",
                 "input": "public"
               }
-            ],
+          ],
             "styles": [
               "src/styles.css"
-            ]
+          ],
+          "browsers": "ChromeHeadlessNoSandbox",
+          "karmaConfig": "karma.conf.js"
           }
         }
       }
