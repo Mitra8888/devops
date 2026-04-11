@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CustomerEdit } from './customer-edit';
 import { provideRouter } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CustomerEdit', () => {
   let component: CustomerEdit;
@@ -14,7 +15,8 @@ describe('CustomerEdit', () => {
       providers: [
         provideHttpClient(),
         provideRouter([])
-      ]
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
 
