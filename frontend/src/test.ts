@@ -1,4 +1,3 @@
-import 'jasmine-core';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
