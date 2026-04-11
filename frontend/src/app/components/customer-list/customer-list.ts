@@ -5,7 +5,6 @@ import { CustomerService } from '../../services/customer';
 import { CommonModule } from '@angular/common';
 import { Customer } from '../../models/customer.model';
 import {MatIconModule} from '@angular/material/icon';
-import { error } from 'console';
 import { Observable } from 'rxjs';
 @Component({
   selector: 'app-customer-list',

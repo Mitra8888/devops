@@ -16,8 +16,8 @@ pipeline {
         stage('Unit testing') {
             steps {
                 dir('frontend') {
-                    sh 'npm install'
-                    sh 'npm test'
+                    sh 'npm ci'
+                    sh 'npm test -- --watch=false --browsers=ChromeHeadless --no-progress'
                 }
             }
         }
