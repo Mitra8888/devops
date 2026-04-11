@@ -4,12 +4,13 @@ import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Customer } from '../../models/customer.model';
 import { CommonModule } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormField, MatLabel } from "@angular/material/input";
-import { MatIcon } from "@angular/material/icon";
+import { MatFormField, MatInputModule, MatLabel } from "@angular/material/input";
+import { MatIcon, MatIconModule } from "@angular/material/icon";
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-customer-edit',
-  imports: [RouterModule,CommonModule, ReactiveFormsModule, MatFormField, MatLabel, MatIcon],
+  imports: [RouterModule,CommonModule, ReactiveFormsModule, MatIconModule, MatFormFieldModule,MatInputModule],
   templateUrl: './customer-edit.html',
   styleUrl: './customer-edit.css'
 })
