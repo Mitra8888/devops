@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    
+    tools {
+        nodejs "NODEJS"
+    }  
+    
+    stages {
+        
+        stage('Fetching code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/Mitra8888/devops.git'
+            }
+        }
+        
+        stage('Unit testing') {
+            steps {
+                dir('frontend') {
+                    sh 'npm install'
+                    sh 'npm test'
+                }
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                dir('frontend') {
+                    sh 'npm run build'
+                }
+            }
+            post {
+                success {
+                    echo "Archiving artifact"
+                    archiveArtifacts artifacts: 'frontend/build/**'
+                }
+            }
+        }
+    }
+}
