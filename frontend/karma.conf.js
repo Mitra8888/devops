@@ -1,5 +1,6 @@
 module.exports = function (config) {
   config.set({
+    frameworks: ['jasmine'],
     customLaunchers: {
       ChromeHeadlessNoSandbox: {
         base: 'ChromeHeadless',
