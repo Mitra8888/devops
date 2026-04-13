@@ -7,6 +7,10 @@ pipeline {
 
     environment {
         CHROME_BIN = '/usr/bin/google-chrome-stable'
+        PROJECT_NAME = 'devops'
+        FRONTEND_REPO = 'uros02/mitra88-devops-frontend-jk'
+        BACKEND_REPO = 'uros02/mitra88-devops-backend-jk'
+        VERSION = "2.${BUILD_NUMBER}"
     }
     
     stages {
@@ -35,9 +39,49 @@ pipeline {
             post {
                 success {
                     echo "Archiving artifact"
-                    archiveArtifacts artifacts: 'frontend/build/**'
+                    archiveArtifacts artifacts: 'frontend/dist/**'
                 }
             }
+        }
+
+        stage ('Build Docker images') {
+            steps {
+                sh 'docker compose -p $PROJECT_NAME build'
+            }
+        }
+
+        stage ('Push Docker images') {
+            steps {
+                withCredentials([usernamePassword(
+                    credentialsId: 'docker-hub-credentials',
+                    usernameVariable: 'DOCKER_USERNAME',
+                    passwordVariable: 'DOCKER_PASSWORD'
+                )]){
+                    sh 'echo $DOCKER_TOKEN | docker login -u $DOCKER_USERNAME --password-stdin'
+
+                    script {
+                        // Frontend
+                        def frontendImageId = sh(script: "docker images -q ${PROJECT_NAME}-frontend", returnStdout: true).trim()
+                        sh "docker tag ${frontendImageId} ${FRONTEND_REPO}:latest"
+                        sh "docker push ${FRONTEND_REPO}:latest"
+                        sh "docker tag ${frontendImageId} ${FRONTEND_REPO}:${VERSION}"
+                        sh "docker push ${FRONTEND_REPO}:${VERSION}"
+
+
+                        // Backend
+                        def backendImageId = sh(script: "docker images -q ${PROJECT_NAME}-backend", returnStdout: true).trim()
+                        sh "docker tag ${backendImageId} ${BACKEND_REPO}:latest"
+                        sh "docker push ${BACKEND_REPO}:latest"
+                        sh "docker tag ${backendImageId} ${BACKEND_REPO}:${VERSION}"
+                        sh "docker push ${BACKEND_REPO}:${VERSION}"
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+            sh 'docker logout'
         }
     }
 }

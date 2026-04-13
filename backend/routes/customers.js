@@ -101,7 +101,7 @@ router.delete('/:id/tasks/:taskId', async (req, res)=>{
 
         customer.tasks = customer.tasks.filter(task => task.id != taskId);
         await customer.save();
-        res.json(customer.tasls);
+        res.json(customer.tasks);
     }catch(error){
         res.status(500).json({message:"Server Error"});
     }
