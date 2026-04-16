@@ -3,6 +3,7 @@ pipeline {
     
     tools {
         nodejs "NODEJS"
+        sonarqube "sonar8.0"
     }
 
     environment {
