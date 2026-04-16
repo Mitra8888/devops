@@ -3,7 +3,6 @@ pipeline {
     
     tools {
         nodejs "NODEJS"
-        sonarqube "sonar8.0"
     }
 
     environment {
@@ -34,7 +33,7 @@ pipeline {
         stage ('SonarQube Scan') {
             steps {
                 dir('frontend'){
-                    withSonarQubeEnv('SonarQube'){
+                    withSonarQubeEnv('sonarserver'){
                         withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
                             sh 'npx sonarqube-scanner -Dsonar.token=$SONAR_TOKEN'
                         }
