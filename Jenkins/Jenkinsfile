@@ -34,13 +34,14 @@ pipeline {
             steps {
                 dir('frontend'){
                     withSonarQubeEnv('sonarserver'){
-                        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]){
-                            sh 'npx sonarqube-scanner -Dsonar.token=$SONAR_TOKEN'
+                            sh '''
+                            npm install
+                            npx sonarqube-scanner
+                            '''
                         }
                     }
                 }
             }
-        }
         stage ('Quality Gate') {
             steps {
                 timeout(time: 2, unit: 'MINUTES') {
