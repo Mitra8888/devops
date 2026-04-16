@@ -17,3 +17,25 @@ docker run -d \
 --network jenkins \
 -p 9000:9000 \
 sonarqube:community 
+
+
+## Start DinD for jenkins-blueocean
+
+docker run --name jenkins-docker --restart=on-failure --detach \
+  --privileged --network jenkins --network-alias docker \
+  --env DOCKER_TLS_CERTDIR=/certs \
+  --volume jenkins-docker-certs:/certs/client \
+  --volume jenkins-data:/var/jenkins_home \
+  docker:dind --storage-driver overlay2
+
+
+## Start Sonatype Nexus3 
+
+docker volume create nexus-data
+
+docker run -d \
+  --name nexus \
+  --network jenkins \
+  -p 8081:8081 \
+  -v nexus-data:/nexus-data \
+  sonatype/nexus3
