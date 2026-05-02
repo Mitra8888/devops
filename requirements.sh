@@ -5,7 +5,7 @@ set -e
 # Install Docker and Docker compose
 
 sudo apt update
-sudo apt install ca-certificates curl 
+sudo apt install -y ca-certificates curl wget
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
@@ -38,7 +38,7 @@ gpg --no-default-keyring \
 --keyring /usr/share/keyrings/hashicorp-archive-keyring.gpg \
 --fingerprint
 
-echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(grep -oP '(?<=UBUNTU_CODENAME=).*' /etc/os-release || lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
 
 sudo apt update
 
