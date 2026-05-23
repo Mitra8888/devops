@@ -162,6 +162,14 @@ resource "aws_vpc_security_group_ingress_rule" "allow_devops-sg" {
   from_port                    = 3100
   ip_protocol                  = "tcp"
   to_port                      = 3100
+
+}
+resource "aws_vpc_security_group_ingress_rule" "allow-grafana_to_loki" {
+  security_group_id = aws_security_group.loki-sg.id
+  referenced_security_group_id = aws_security_group.grafana-sg.id
+  from_port = 3100
+  ip_protocol = "tcp"
+  to_port = 3100
 }
 resource "aws_vpc_security_group_egress_rule" "loki_allowoOutBoundIPV4" {
   security_group_id = aws_security_group.loki-sg.id
